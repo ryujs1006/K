@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: private-kis-market-api
+    runtime: python
+    plan: free
+    region: singapore
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: KIS_APP_KEY
+        sync: false
+      - key: KIS_APP_SECRET
+        sync: false
+      - key: APP_ACCESS_SECRET
+        sync: false
+      - key: KIS_BASE_URL
+        value: https://openapi.koreainvestment.com:9443
+      - key: KIS_TIMEOUT
+        value: "10"
